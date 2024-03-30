@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/simarzouki/portfolio#readme",
   "dependencies": {
-    "firebase": "^10.4.0"
+    "express": "^4.18.2",
+    "firebase": "^10.4.0",
+    "nodemailer": "^6.9.5"
   }
 }
