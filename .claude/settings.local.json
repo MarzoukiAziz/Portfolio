@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:parajulisudip.com.np)",
+      "Bash(curl -s \"https://parajulisudip.com.np/\")",
+      "Read(//tmp/**)",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(rm public/index.html public/404.html index.js firebase.json firebase-debug.log)",
+      "Bash(rm -rf public/css public/js public/fonts)"
+    ]
+  }
+}
