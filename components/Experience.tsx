@@ -1,133 +1,116 @@
+import { Reveal } from './Reveal'
+import { SectionHeading } from './SectionHeading'
+
+// Text mirrors the LinkedIn profile; keep the two in sync.
 const experiences = [
   {
+    company: 'Algora',
+    role: 'Tech Lead, AI & Cloud',
+    period: 'Mar 2025 – Now',
+    place: 'Luxembourg',
+    summary: 'Leading the engineering behind Algora, an AI platform for asset and wealth managers.',
+    points: [
+      'Technical direction: responsible for the platform’s architecture across backend, frontend and internal tooling, working closely with the founders on what to build next.',
+      'AI: design and delivery of agent-based features with a focus on answers that can be traced back to their sources.',
+      'Cloud: running multiple environments on Google Cloud, including releases, monitoring and alerting.',
+      'Security and compliance: data protection, audit logging and GDPR work expected by financial institutions.',
+      'Team: code reviews, engineering standards and mentoring of junior engineers and interns.',
+    ],
+    stack: ['Python', 'FastAPI', 'Google ADK', 'Vertex AI', 'Google Cloud', 'RAG', 'MCP'],
+  },
+  {
     company: 'Orange',
-    role: 'Full Stack Web Developer',
-    period: '2023 – 2024',
+    role: 'Full Stack Developer',
+    period: 'Jan 2024 – Dec 2024',
+    place: 'Paris',
+    summary: 'Full-stack development on the PaaS portal used by Orange teams.',
     points: [
-      'Designed and implemented 25+ new features and resolved 10+ bugs for the PaaS portal.',
-      'Automated CI/CD with Jenkins; managed infrastructure using Docker and Kubernetes.',
-      'Streamlined server provisioning with Ansible in collaboration with the Ops team.',
-      'Created UI mockups, wrote technical documentation, and managed Agile as SCRUM master.',
+      'Delivered 25+ features and fixed 10+ bugs across the frontend and backend.',
+      'Maintained the CI/CD pipelines (Jenkins, GitLab) and Docker-based deployments.',
+      'Took part in code reviews, technical documentation, client demos and Agile ceremonies.',
     ],
+    stack: ['React', 'Node.js', 'Jenkins', 'GitLab CI', 'Docker'],
   },
   {
-    company: 'SFM Group',
-    role: 'Developer',
-    period: '2022',
+    company: 'XoAuto',
+    role: 'Full Stack Developer',
+    period: 'Jun 2022 – Jan 2024',
+    place: 'Remote',
+    summary: 'Full-stack development for an electric-vehicle service platform.',
     points: [
-      'Implemented internet connection quality testing using the LibreSpeed library.',
-      'Designed database schemas for test results and user data.',
-      'Built a backoffice dashboard with data mining insights for data-driven decisions.',
+      'Built the server-side architecture and the client-side interfaces of the web application.',
+      'Worked on authentication, PostgreSQL performance and search caching.',
+      'Automated delivery with GitHub Actions and infrastructure with Terraform on AWS.',
     ],
-  },
-  {
-    company: 'Ministère des Transports',
-    role: 'Mobile Developer',
-    period: '2022',
-    points: [
-      'Developed a Symfony feature to track vehicle import requests for people with disabilities.',
-      'Created a CRON job for daily SMS notifications via third-party APIs.',
-    ],
-  },
-  {
-    company: 'beFlutter Pro',
-    role: 'Founder & Instructor',
-    period: '2021 – Present',
-    points: [
-      'Built a comprehensive Flutter & Dart educational platform using Node.js and Firebase.',
-      'Demonstrated 13+ applications to guide junior developers.',
-    ],
-  },
-  {
-    company: 'ESAC',
-    role: 'Co-founder & Trainer',
-    period: '2021 – 2022',
-    points: [
-      'Designed a Symfony scheduling platform for the Academic Support Centre.',
-      'Mentored students in JavaFX and Symfony academic projects.',
-    ],
+    stack: ['PostgreSQL', 'AWS', 'Terraform', 'GitHub Actions'],
   },
 ]
 
 const education = [
-  {
-    institution: 'ISEP Paris',
-    degree: 'Exchange Program – Computer Engineering',
-    period: '2023 – 2024',
-    detail:
-      'Advanced topics: automatics, real-time systems, mobile development, machine learning, formal methods.',
-  },
-  {
-    institution: 'ESPRIT Engineering School',
-    degree: 'Computer Engineering Degree',
-    period: '2021 – 2023',
-    detail:
-      'Algorithms, data structures, software engineering, design patterns, and hands-on group projects.',
-  },
-  {
-    institution: 'ISSAT Sousse',
-    degree: 'Preparatory Cycle – Mathematics & CS',
-    period: '2019 – 2021',
-    detail: 'Strong foundation in mathematics, algorithms, and coding fundamentals.',
-  },
+  { school: 'ISEP Paris', degree: 'Master’s degree, computer software engineering', period: '2022' },
+  { school: 'ESPRIT', degree: 'Engineering degree, financial computing', period: '2020 – 22' },
+  { school: 'ISSAT Sousse', degree: 'Preparatory cycle for engineering studies, MPI', period: '2018 – 20' },
 ]
 
 export function Experience() {
   return (
-    <section id="experience" className="container mx-auto px-4 py-16">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-        {/* Experience */}
-        <div>
-          <h2 className="text-2xl font-bold mb-2">Experience</h2>
-          <div className="w-12 h-0.5 bg-primary mb-8" />
-          <div className="space-y-8">
-            {experiences.map((exp) => (
-              <div key={exp.company} className="relative pl-5 border-l border-border">
-                <div className="absolute -left-1.5 top-1.5 h-3 w-3 rounded-full border-2 border-primary bg-background" />
-                <div className="flex items-start justify-between gap-2 mb-1">
-                  <div>
-                    <h3 className="font-semibold leading-tight">{exp.company}</h3>
-                    <p className="text-sm text-primary mt-0.5">{exp.role}</p>
-                  </div>
-                  <span className="text-xs text-muted-foreground whitespace-nowrap pt-0.5">
-                    {exp.period}
-                  </span>
-                </div>
-                <ul className="mt-2 space-y-1.5">
-                  {exp.points.map((point, i) => (
-                    <li key={i} className="text-sm text-muted-foreground flex gap-2">
-                      <span className="text-primary shrink-0 mt-0.5">–</span>
+    <section id="experience" className="container-x py-24 md:py-36">
+      <SectionHeading index="03" label="Experience">
+        Where I&apos;ve <span className="accent-serif">worked.</span>
+      </SectionHeading>
+
+      <div>
+        {experiences.map((exp) => (
+          <Reveal key={exp.company}>
+            <article className="group grid gap-4 border-t py-10 md:grid-cols-12 md:gap-8 md:py-14">
+              <div className="font-mono text-xs leading-6 text-muted-foreground md:col-span-3">
+                <p>{exp.period}</p>
+                <p>{exp.place}</p>
+              </div>
+              <div className="md:col-span-9">
+                <h3 className="display text-3xl transition-colors group-hover:text-primary md:text-5xl">
+                  {exp.company}
+                </h3>
+                <p className="mt-2 font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
+                  {exp.role}
+                </p>
+                <p className="mt-5 max-w-2xl text-lg leading-relaxed md:text-xl">{exp.summary}</p>
+                <ul className="mt-5 max-w-2xl space-y-2">
+                  {exp.points.map((point) => (
+                    <li key={point} className="flex gap-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+                      <span aria-hidden className="mt-[0.7em] h-px w-3 shrink-0 bg-primary" />
                       <span>{point}</span>
                     </li>
                   ))}
                 </ul>
+                <ul className="mt-6 flex flex-wrap gap-1.5">
+                  {exp.stack.map((tool) => (
+                    <li key={tool} className="rounded-full border px-2.5 py-1 font-mono text-[11px] text-muted-foreground">
+                      {tool}
+                    </li>
+                  ))}
+                </ul>
               </div>
-            ))}
-          </div>
-        </div>
+            </article>
+          </Reveal>
+        ))}
 
-        {/* Education */}
-        <div>
-          <h2 className="text-2xl font-bold mb-2">Education</h2>
-          <div className="w-12 h-0.5 bg-primary mb-8" />
-          <div className="space-y-8">
-            {education.map((edu) => (
-              <div key={edu.institution} className="relative pl-5 border-l border-border">
-                <div className="absolute -left-1.5 top-1.5 h-3 w-3 rounded-full border-2 border-primary bg-background" />
-                <div className="flex items-start justify-between gap-2 mb-1">
-                  <div>
-                    <h3 className="font-semibold leading-tight">{edu.institution}</h3>
-                    <p className="text-sm text-primary mt-0.5">{edu.degree}</p>
-                  </div>
-                  <span className="text-xs text-muted-foreground whitespace-nowrap pt-0.5">
-                    {edu.period}
+        <Reveal>
+          <div className="grid gap-4 border-t py-10 md:grid-cols-12 md:gap-8">
+            <p className="font-mono text-xs leading-6 text-muted-foreground md:col-span-3">Education</p>
+            <ul className="md:col-span-9">
+              {education.map(({ school, degree, period }) => (
+                <li key={school} className="flex items-baseline justify-between gap-4 border-b py-3 first:pt-0 last:border-0">
+                  <span>
+                    <span className="font-medium">{school}</span>
+                    <span className="text-sm text-muted-foreground"> · {degree}</span>
                   </span>
-                </div>
-                <p className="mt-2 text-sm text-muted-foreground">{edu.detail}</p>
-              </div>
-            ))}
+                  <span className="whitespace-nowrap font-mono text-xs text-muted-foreground">{period}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   )
