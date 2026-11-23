@@ -153,3 +153,30 @@
   .rise, .glow, .caret { animation: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
+
+/* Ink sketches used as card backgrounds. The image is a mask, so the lines
+   take the current text colour and work in both themes. */
+.sketch {
+  background-color: currentColor;
+  -webkit-mask-image: var(--sketch), var(--sketch-fade);
+  mask-image: var(--sketch), var(--sketch-fade);
+  -webkit-mask-size: var(--sketch-size, 100% auto), 100% 100%;
+  mask-size: var(--sketch-size, 100% auto), 100% 100%;
+  -webkit-mask-position: var(--sketch-position, center bottom), center;
+  mask-position: var(--sketch-position, center bottom), center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  /* fade towards the top, where the text sits */
+  --sketch-fade: linear-gradient(to bottom, rgba(0, 0, 0, 0.14) 38%, #000 96%);
+}
+
+/* On phones the path stops stack, so the sketch sits on the right and fades in from the left. */
+@media (max-width: 639px) {
+  .sketch-stop {
+    --sketch-size: auto 120%;
+    --sketch-position: right bottom !important;
+    --sketch-fade: linear-gradient(to right, transparent 35%, #000 85%);
+  }
+}
