@@ -2,12 +2,13 @@ import { ArrowUpRight } from 'lucide-react'
 import { LocalTime } from './LocalTime'
 import { Reveal } from './Reveal'
 import { SectionHeading } from './SectionHeading'
+import { CityMark, LuxembourgSkyline } from './Sketches'
 import { SpotlightGroup } from './SpotlightGroup'
 
 const languages = [
-  { name: 'Arabic', level: 'Native' },
+  { name: 'English', level: 'Full professional' },
   { name: 'French', level: 'Full professional' },
-  { name: 'English', level: 'Professional' },
+  { name: 'Arabic', level: 'Native' },
   { name: 'German', level: 'A2' },
 ]
 
@@ -68,10 +69,11 @@ export function About() {
             </p>
           </div>
 
-          <div data-spot className="card md:col-span-2">
-            <p className="eyebrow">Based in</p>
-            <p className="display mt-4 text-3xl">Luxembourg</p>
-            <p className="mt-3 flex items-center gap-2 font-mono text-sm text-muted-foreground">
+          <div data-spot className="card min-h-[17rem] md:col-span-2">
+            <LuxembourgSkyline className="pointer-events-none absolute inset-x-0 bottom-0 h-[58%] w-full text-foreground/30" />
+            <p className="eyebrow relative">Based in</p>
+            <p className="display relative mt-4 text-3xl">Luxembourg</p>
+            <p className="relative mt-3 flex items-center gap-2 font-mono text-sm text-muted-foreground">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-60" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
@@ -107,8 +109,14 @@ export function About() {
                       i === path.length - 1 ? 'bg-primary' : 'bg-muted-foreground/50'
                     }`}
                   />
+                  <CityMark
+                    place={place}
+                    className={`absolute right-2 top-0 h-9 w-14 sm:right-4 sm:top-5 ${
+                      i === path.length - 1 ? 'text-primary' : 'text-muted-foreground/70'
+                    }`}
+                  />
                   <p className="font-display text-lg font-semibold tracking-tight">{place}</p>
-                  <p className="mt-1 text-sm text-muted-foreground">{what}</p>
+                  <p className="mt-1 max-w-[70%] text-sm text-muted-foreground sm:max-w-[65%]">{what}</p>
                   <p className="mt-1 font-mono text-[11px] text-muted-foreground">{when}</p>
                 </li>
               ))}
