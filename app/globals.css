@@ -4,43 +4,152 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 97%;
-    --card-foreground: 240 10% 3.9%;
-    --primary: 245 58% 51%;
-    --primary-foreground: 0 0% 98%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --border: 240 5.9% 90%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
+    --background: 40 33% 96%;
+    --foreground: 30 12% 8%;
+    --card: 40 40% 98.5%;
+    --card-foreground: 30 12% 8%;
+    --primary: 14 88% 44%;
+    --primary-foreground: 0 0% 100%;
+    --muted: 40 16% 90%;
+    --muted-foreground: 30 6% 36%;
+    --border: 35 14% 84%;
+    --accent: 40 16% 90%;
+    --accent-foreground: 30 12% 8%;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 6%;
-    --card-foreground: 0 0% 98%;
-    --primary: 245 58% 65%;
-    --primary-foreground: 240 10% 3.9%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --border: 240 3.7% 15.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+    --background: 30 8% 4%;
+    --foreground: 40 14% 92%;
+    --card: 30 7% 6.5%;
+    --card-foreground: 40 14% 92%;
+    --primary: 17 100% 61%;
+    --primary-foreground: 20 20% 5%;
+    --muted: 30 5% 12%;
+    --muted-foreground: 35 7% 62%;
+    --border: 30 6% 15%;
+    --accent: 30 5% 12%;
+    --accent-foreground: 40 14% 92%;
   }
-}
 
-@layer base {
   * {
-    @apply border-border box-border;
+    @apply border-border;
   }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  ::selection {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
   }
 }
 
-html {
-  scroll-behavior: smooth;
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-6xl px-5 md:px-8;
+  }
+
+  .eyebrow {
+    @apply font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground;
+  }
+
+  .display {
+    @apply font-display font-semibold;
+    letter-spacing: -0.04em;
+    line-height: 0.98;
+  }
+
+  .accent-serif {
+    @apply font-serif italic font-normal text-primary;
+    letter-spacing: -0.02em;
+  }
+
+  .card {
+    @apply relative overflow-hidden rounded-3xl border bg-card p-6 md:p-8;
+  }
+}
+
+/* Hero backdrop: faint grid that fades out, plus a slow warm glow. */
+.hero-grid {
+  background-image:
+    linear-gradient(to right, hsl(var(--foreground) / 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--foreground) / 0.07) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 25%, transparent 78%);
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 25%, transparent 78%);
+}
+
+.glow {
+  background: radial-gradient(circle, hsl(var(--primary) / 0.28), transparent 62%);
+  filter: blur(40px);
+  animation: drift 16s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(-6%, 8%, 0) scale(1.15); }
+}
+
+/* Entrance on load (hero) */
+.rise {
+  animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Entrance on scroll (see components/Reveal.tsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Cursor-following highlight on cards (see components/SpotlightGroup.tsx) */
+[data-spot]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), hsl(var(--primary) / 0.11), transparent 65%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+[data-spot-group]:hover [data-spot]::after {
+  opacity: 1;
+}
+
+.caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: hsl(var(--primary));
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rise, .glow, .caret { animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
 }

@@ -1,21 +1,21 @@
 import { Navbar } from '@/components/Navbar'
 import { Hero } from '@/components/Hero'
 import { About } from '@/components/About'
-import { TechStack } from '@/components/TechStack'
+import { Work } from '@/components/Work'
 import { Experience } from '@/components/Experience'
-import { Projects } from '@/components/Projects'
-import { Footer } from '@/components/Footer'
+import { Contact } from '@/components/Contact'
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
+    <>
       <Navbar />
-      <Hero />
-      <About />
-      <TechStack />
-      <Experience />
-      <Projects />
-      <Footer />
-    </main>
+      <main>
+        <Hero />
+        <About />
+        <Work />
+        <Experience />
+      </main>
+      <Contact />
+    </>
   )
 }
