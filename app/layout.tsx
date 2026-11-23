@@ -27,7 +27,6 @@ export const metadata: Metadata = {
     'Algora',
   ],
   alternates: { canonical: '/' },
-  icons: { icon: '/images/favicon.png' },
   openGraph: {
     type: 'profile',
     url: '/',
